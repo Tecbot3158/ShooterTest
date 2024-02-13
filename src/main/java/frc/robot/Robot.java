@@ -9,9 +9,11 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -26,6 +28,20 @@ public class Robot extends TimedRobot {
   private CANSparkMax topMotor;
   private CANSparkMax bottomMotor;
 
+
+  private ShuffleboardTab tab = Shuffleboard.getTab("Shooter Speeds"); 
+   private GenericEntry rollerSpeed =
+      tab.add("Roller Speed", 0.1)
+         .getEntry();
+   
+  private GenericEntry bottomSpeed =
+   tab.add("Top Speed", 0.0)
+        .getEntry();
+
+  private GenericEntry topSpeed =
+   tab.add("Top Speed", 0.0)
+        .getEntry();
+  
 
   @Override
   public void robotInit() {
@@ -77,19 +93,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-      double rollerSpeed = SmartDashboard.getNumber("Roller Speed", 0.0);
-      double topSpeed = SmartDashboard.getNumber("Top Shooter Speed", 0.0);
-      double bottomSpeed = SmartDashboard.getNumber("Bottom Shooter Speed", 0.0);
-
+      
+      double rs = rollerSpeed.getDouble(0.0);
+      double ts = topSpeed.getDouble(0.0);
+      double bs = bottomSpeed.getDouble(0.0);
 
       if(controller.getAButton() ){
-        roller.set(VictorSPXControlMode.PercentOutput, rollerSpeed);
+        roller.set(VictorSPXControlMode.PercentOutput, rs);
       }
 
       if(controller.getBButton() ){
-        topMotor.set(topSpeed);
-        bottomMotor.set(bottomSpeed);
+        topMotor.set(ts);
+        bottomMotor.set(bs);
       }
 
       if( controller.getXButton() ){
