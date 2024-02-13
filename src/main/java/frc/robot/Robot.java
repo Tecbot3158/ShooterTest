@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   }
 
 
-  
+
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
@@ -90,6 +90,12 @@ public class Robot extends TimedRobot {
       if(controller.getBButton() ){
         topMotor.set(topSpeed);
         bottomMotor.set(bottomSpeed);
+      }
+
+      if( controller.getXButton() ){
+        roller.set(VictorSPXControlMode.PercentOutput, 0);
+        topMotor.set(0);
+        bottomMotor.set(0);
       }
   }
 
