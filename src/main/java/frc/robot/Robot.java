@@ -29,13 +29,31 @@ public class Robot extends TimedRobot {
   private CANSparkMax bottomMotor;
 
 
+/*
+ * AMP Configutation
+  * roller: 0.3
+ * bottom speed: .23
+ * top speed: .08
+ * 
+ * Speaker Configutation
+  * roller: 0.4
+ * bottom speed: .4
+ * top speed: .5
+ * 
+ * TRAP
+ *  pegado
+ *  r
+ *  bs
+ *  ts
+ */
+
   private ShuffleboardTab tab = Shuffleboard.getTab("Shooter Speeds"); 
    private GenericEntry rollerSpeed =
-      tab.add("Roller Speed", 0.1)
+      tab.add("Roller Speed", 0.0)
          .getEntry();
    
   private GenericEntry bottomSpeed =
-   tab.add("Top Speed", 0.0)
+   tab.add("Bottom Speed", 0.0)
         .getEntry();
 
   private GenericEntry topSpeed =
